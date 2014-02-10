@@ -41,8 +41,6 @@ module.exports = function(grunt) {
         },
 
         /*  Uglify seems to be the industry standard for minification and obfuscation nowadays. 
-            TODO: rework the plugins file, remove the already-minified bits and add them to the concat task
-            TODO: optimise uglify parameters to give better results
         */
         uglify: {
             build: {
@@ -75,8 +73,6 @@ module.exports = function(grunt) {
 
     /*  The default task runs when you just run `grunt`.
         "js" and "css" tasks process their respective files. 
-
-        TODO: add a cleanup task 
     */
     grunt.registerTask('css', ['compass']);
     grunt.registerTask('js', ['uglify', 'concat']);
