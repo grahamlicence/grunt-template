@@ -1,2 +1,1 @@
-grunt-template
-==============
+Simple grunt project template
