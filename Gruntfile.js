@@ -96,9 +96,23 @@ module.exports = function(grunt) {
         watch: {
             css: {
                 files: 'sass/**/*.scss',
-                tasks: ['compass'],
+                tasks: ['compass', 'notify:watch']
+            }
+        },
+
+        // notify when tasks completed, should work out of the box on OSX
+        // needs http://snarl.fullphat.net/ or similar for windoes
+        notify: {
+            watch: {
                 options: {
-                    livereload: true
+                    title: 'Sass',
+                    message: 'Build complete'
+                }
+            },
+            build: {
+                options: {
+                    title: 'JS',
+                    message: 'Build complete'
                 }
             }
         },
@@ -121,7 +135,7 @@ module.exports = function(grunt) {
       //   "js" and "css" tasks process their respective files. 
     
     grunt.registerTask('css', ['compass']);
-    grunt.registerTask('js', ['uglify', 'concat', 'clean:postbuild']);
+    grunt.registerTask('js', ['uglify', 'concat', 'clean:postbuild', 'notify:build']);
 
     grunt.registerTask('default', ['css', 'connect', 'watch']);
 };
