@@ -43,14 +43,14 @@ module.exports = function(grunt) {
             },
             dist: {
                 src: [
-                    'javascript/vendor/jquery-1.10.2.min.js',
-                    'javascript/main.min.js'
+                    'site/assets/scripts/vendor/*',
+                    'site/assets/scripts/temp/main.min.js'
                 ],
                 dest: 'site/assets/scripts/dist.min.js'
             }
         },
 
-        // Combines depulicated media queries
+        // Combines duplicated media queries
         cmq: {
             options: {
                 log: false
@@ -67,10 +67,15 @@ module.exports = function(grunt) {
         uglify: {
             build: {
                 src: [
-                    'javascript/build/*'
+                    'site/assets/scripts/all/*'
                 ],
-                dest: 'javascript/main.min.js'
+                dest: 'site/assets/scripts/temp/main.min.js'
             }
+        },
+
+
+        clean: {
+            postbuild: ['site/assets/scripts/temp']
         },
 
         // Minifies the main.css file inside the styles folder into the deploy folder as main.min.css
@@ -96,6 +101,18 @@ module.exports = function(grunt) {
                     livereload: true
                 }
             }
+        },
+
+        connect: {
+          dev: {
+            options: {
+                open: true,
+                hostname: 'localhost',
+                port: 8000,
+                base: './site/',
+                keepalive: true
+            }
+          }
         }
     });
 
@@ -104,7 +121,7 @@ module.exports = function(grunt) {
       //   "js" and "css" tasks process their respective files. 
     
     grunt.registerTask('css', ['compass']);
-    grunt.registerTask('js', ['uglify', 'concat']);
+    grunt.registerTask('js', ['uglify', 'concat', 'clean:postbuild']);
 
-    grunt.registerTask('default', ['css', 'js', 'watch']);
+    grunt.registerTask('default', ['css', 'connect', 'watch']);
 };
