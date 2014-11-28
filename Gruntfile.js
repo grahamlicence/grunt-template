@@ -120,11 +120,11 @@ module.exports = function(grunt) {
         connect: {
           dev: {
             options: {
+                // keepalive: true, // we only need this if not running a watch task
                 open: true,
                 hostname: 'localhost',
                 port: 8000,
-                base: './site/',
-                keepalive: true
+                base: './src/'
             }
           }
         }
@@ -137,5 +137,5 @@ module.exports = function(grunt) {
     grunt.registerTask('css', ['compass']);
     grunt.registerTask('js', ['uglify', 'concat', 'clean:postbuild', 'notify:build']);
 
-    grunt.registerTask('default', ['css', 'connect', 'watch']);
+    grunt.registerTask('default', ['compass', 'connect', 'watch']);
 };
